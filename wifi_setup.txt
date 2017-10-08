@@ -75,3 +75,26 @@ how to vnc
 3. open ssh remmina / vnc client (192.168.43.5:1)
 4. insert password 81078670
 5. voila!
+
+----------------------------------
+systemd service configuration
+
+sudo nano /lib/systemd/system/alvaenergi.service
+
+--
+[Unit]
+Description=Alva Energi
+After=multi-user.target
+
+[Service]
+Environment="FIREBASE_SECRET=2woGLBK6IxfOtDCM553cZshFZJAZxSHVd3mAcGRY"
+ExecStart=/usr/bin/python /home/pi/Desktop/geranting/run_main_geranting.py
+
+[Install]
+WantedBy=multi-user.target
+--
+
+sudo chmod 777 /lib/systemd/system/alvaenergi.service
+sudo systemctl daemon-reload
+sudo systemctl enable alvaenergi.service
+sudo systemctl start alvaenergi.service
